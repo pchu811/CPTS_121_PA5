@@ -161,7 +161,7 @@ void yahtzee_game(int* s, int* c, int p) //s--score, c -- user choice, p-- playe
 
 	int dice[5]; //array dice 1-5
 	int user_selection = 0; //value of yes or no from users
-	char nul = '\0'; //for if the user choose to continue the game
+	char ans = '\0'; //for if the user choose to continue the game
 	//three time for user if the user want to roll the dice
 	for (int i = 0; i < 3 && user_selection == 0; i++)
 	{	
@@ -204,13 +204,13 @@ void yahtzee_game(int* s, int* c, int p) //s--score, c -- user choice, p-- playe
 		{
 			//ask the user if he/she wants to continue the game y or n
 			printf("Do you want to continue to reroll dice[Y(for yes)/N(for no)]:\n");
-			scanf(" %c", &nul);
+			scanf(" %c", &ans);
 
 			do 
 			{
 				//if yes -- how many numbers do you want to reroll
 				//array for which one do you want to reroll(1-5)
-				if (nul == 'y' || nul == 'Y')
+				if (ans == 'y' || ans == 'Y')
 				{
 					printf("How many dice do you want to reroll(press 1 - 5)? \n");
 					scanf(" %d", &reroll);
@@ -229,7 +229,7 @@ void yahtzee_game(int* s, int* c, int p) //s--score, c -- user choice, p-- playe
 				}
 				//if no
 				//ask the user which combination she/he wants to choose
-				else if (nul == 'n' || nul == 'N')
+				else if (ans == 'n' || ans == 'N')
 				{
 					printf("Which combination would you want to choose? ");
 					scanf(" %d", &user_selection);
@@ -240,7 +240,7 @@ void yahtzee_game(int* s, int* c, int p) //s--score, c -- user choice, p-- playe
 				else
 				{
 					printf("Please enter Y/N: ");
-					scanf(" %c", &nul);
+					scanf(" %c", &ans);
 				}
 			} while (i < 3);
 
@@ -254,15 +254,6 @@ void yahtzee_game(int* s, int* c, int p) //s--score, c -- user choice, p-- playe
 
 }
 
-//check if win the game
-int check_win(char* score) {
-	int win = 0;//默認遊戲結束
-	for (int i = 0; i < 13; i++) {
-		if (score[i] != 'T') {//當系統檢測有任何空白的沒有被判斷T的時候，遊戲win=1遊戲繼續。
-			win = 1;
-		}
-	}
-}
 
 //get score 產硄筁–˙匡拒眔だ计
 //choose dice combination
@@ -353,7 +344,7 @@ void score_get(int choice, int* dice, int size, int* s, int* c)
 		{
 			if (dice[i] == dice[i + 1] && dice[i] == dice[i + 2]) //Three dice with the same face
 			{
-				score += 6; //Sum of all face values on the 5 dice
+				score += sum_array(dice, size); //Sum of all face values on the 5 dice
 			}
 		}
 	}
@@ -378,18 +369,20 @@ void score_get(int choice, int* dice, int size, int* s, int* c)
 	}
 	if (choice == 10) //Small straight -- A sequence of four dice
 	{
+		int in_sequence = 0;
+
 		for (int i = 0; i < size - 1; i++)
 		{
 			if (dice[i] == dice[i + 1] - 1)
 			{
-				score++;
+				in_sequence++;
 			}
-			else if (dice[i] != dice[i + 1] && score != 3)
+			else if (dice[i] != dice[i + 1] && in_sequence != 3)
 			{
-				score = 0;
+				in_sequence = 0;
 			}
 		}
-		if (score >= 3) 
+		if (in_sequence >= 3)
 		{
 			score = 30;
 		}
@@ -446,7 +439,7 @@ void prompt_score(int* score) { //*score save score
 
 }
 
-//swap array 
+
 void bubble_sort(int arr[], int size) {
 	int tempt = 0;
 	for (int i = 0; i < size - 1; i++) {
