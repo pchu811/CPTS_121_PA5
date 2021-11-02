@@ -26,7 +26,7 @@
 // The lower section contains a number of poker like combinations. See the table provided below:
 
 
-#include "PA5_old.h"
+#include "PA5.h"
 
 int main(void)
 {

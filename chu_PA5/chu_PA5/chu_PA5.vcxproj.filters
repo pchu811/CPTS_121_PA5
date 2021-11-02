@@ -18,12 +18,12 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PA5_old.c">
+    <ClCompile Include="PA5.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PA5_old.h">
+    <ClInclude Include="PA5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
-#ifndef PA5_old_H
-#define PA5_old_H
+#ifndef PA5_H
+#define PA5_H
 
 /******************************************************************************
 * Programmer: Pei-Chi Chu													  *
@@ -55,12 +55,40 @@ void print_game_option(void);
 ***********************************************************************/
 void display_rule(void);
 
-//Get a menu option from the user; clear the screen
+/***********************************************************************
+* Function: get_option()												*
+* Date Created:10/24/2021												*
+* Date Last Modified:													*
+* Description: Get a menu option from the user; clear the screen	    *
+* Input parameters: 													*
+* Returns:																*
+* Preconditions:														*
+* Postconditions:														*
+***********************************************************************/
 int get_option(void);
 
-//option print and validate
+/***********************************************************************
+* Function: print_and_validate()										*
+* Date Created:10/24/2021												*
+* Date Last Modified:													*
+* Description: option print and validate							    *
+* Input parameters: 													*
+* Returns:																*
+* Preconditions:														*
+* Postconditions:														*
+***********************************************************************/
 int print_and_validate(void);
 
+/***********************************************************************
+* Function: check_game_rule()										*
+* Date Created:10/24/2021												*
+* Date Last Modified:													*
+* Description: option print and validate							    *
+* Input parameters: 													*
+* Returns:																*
+* Preconditions:														*
+* Postconditions:														*
+***********************************************************************/
 //If option 1 is entered, then print the game rules stated above and repeat step (1)
 //otherwise if option 2 is entered, then continue on to step(4); player 1 starts the game
 //otherwise if option 3 is entered, then print a goodbye messageand quit the program
@@ -72,7 +100,7 @@ int continue_game(void);
 
 //Roll the five dice and display the face values of each die
 //int roll_die(void);
-void display_dice(int* dice);
+void roll_dice(int* dice);
 
 //roud game
 void yahtzee_game(int* s, int* c);
@@ -88,8 +116,11 @@ void score_get(int choice, int* dice, int size, int* s, int* c);
 //display score
 void prompt_score(int* score);
 
-//swap array 
+//sort array 
 void bubble_sort(int arr[], int size);
+
+//Finds the sum of all dice with the specified face value.
+int sum_dice_with_specified_face_value(int* dice_arr, int size, int target_face_value);
 
 #endif // DEBUG
 

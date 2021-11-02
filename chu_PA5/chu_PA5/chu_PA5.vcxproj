@@ -140,10 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
-    <ClCompile Include="PA5_old.c" />
+    <ClCompile Include="PA5.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PA5_old.h" />
+    <ClInclude Include="PA5.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

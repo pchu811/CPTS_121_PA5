@@ -13,7 +13,7 @@
 * Format of output file (output.dat):							              *
 ******************************************************************************/
 
-#include "PA5_old.h"
+#include "PA5.h"
 
 //print game menu for the user
 void print_game_option(void)
@@ -135,7 +135,7 @@ int continue_game(void)
 }
 
 //Roll the five dice and display the face values of each die
-void display_dice(int* dice)
+void roll_dice(int* dice)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -172,7 +172,7 @@ void yahtzee_game(int* s, int* c, int p) //s--score, c -- user choice, p-- playe
 		
 		if (i == 0)
 		{
-			display_dice(dice);
+			roll_dice(dice);
 			bubble_sort(dice, size);
 		}
 		//round three-- no chance to reroll the dice
@@ -181,7 +181,6 @@ void yahtzee_game(int* s, int* c, int p) //s--score, c -- user choice, p-- playe
 		{
 			printf("It's the final round! Which combination do you want to choose?");
 			scanf(" %d", &user_selection);
-			score_get(user_selection, dice, NUM_DICE, s, c);
 
 			while (1)
 			{
@@ -271,67 +270,12 @@ void score_get(int choice, int* dice, int size, int* s, int* c)
 	bubble_sort(dice, size);
 
 
-	//when choose dice one, the score + 1
-	//i循環5次，i的地址從0開始，0上面的數字==1的時候，score+1；
-	if (choice == 1) //choice -- choice of the user
+	//when choose combination 1 through 6
+	if (choice >= 1 && choice <= 6)
 	{
-		for (int i = 0; i < size; i++) {//i round five times，i start at 0，0上面的数字==1的时候，s分数+1；
-			if (dice[i] == 1)
-			{
-				score += 1;
-			}
-		}
+		score = sum_dice_with_specified_face_value(dice, size, choice);
 	}
-	//when choose dice two, the score + 2
-	if (choice == 2)
-	{
-		for (int i = 0; i < size; i++) {
-			if (dice[i] == 2)
-			{
-				score += 2;
-			}
-		}
-	}
-	//when choose dice three, the score + 3
-	if (choice == 3)
-	{
-		for (int i = 0; i < size; i++) {
-			if (dice[i] == 3)
-			{
-				score += 3;
-			}
-		}
-	}
-	//when choose dice four, the score + 4
-	if (choice == 4)
-	{
-		for (int i = 0; i < size; i++) {
-			if (dice[i] == 4)
-			{
-				score += 4;
-			}
-		}
-	}
-	//when choose dice five, the score + 5
-	if (choice == 5)
-	{
-		for (int i = 0; i < size; i++) {
-			if (dice[i] == 5)
-			{
-				score += 5;
-			}
-		}
-	}
-	//when choose dice six, the score + 6
-	if (choice == 6)
-	{
-		for (int i = 0; i < size; i++) {
-			if (dice[i] == 6)
-			{
-				score += 6;
-			}
-		}
-	}
+
 	/// <summary>
 	/// lower section for user to choose
 	/// </summary>
@@ -410,7 +354,7 @@ void score_get(int choice, int* dice, int size, int* s, int* c)
 	c[choice - 1] = 1;
 	s[choice - 1] = score;
 }
-
+  
 //calculates the sum of an array
 int sum_array(int array[], int size) {
 	int sum = 0;
@@ -435,7 +379,7 @@ void prompt_score(int* score) { //*score save score
 	if (sum_array(score, 6) >= 63) {
 		score[13] = 35;
 	}
-	printf("total score: [%d]  bonus: [%d] \n",  sum_array(score, 14), score[13]); //14-- +bonus
+	printf("total score: [%d]  bonus: [%d] \n\n\n",  sum_array(score, 14), score[13]); //14-- +bonus
 
 }
 
@@ -451,4 +395,23 @@ void bubble_sort(int arr[], int size) {
 			}
 		}
 	}
+}
+
+/// <summary>
+/// Finds the sum of all dice with the specified face value.
+/// </summary>
+/// <param name="dice_arr"></param>
+/// /// <param name="size"></param>
+/// <param name="target_face_value"></param>
+/// <returns>the sum of all dice with the specified face value</returns>
+int sum_dice_with_specified_face_value(int* dice_arr, int size, int target_face_value)
+{
+	int final_score = 0;
+	for (int i = 0; i < size; i++) {
+		if (dice_arr[i] == target_face_value)
+		{
+			final_score += target_face_value;
+		}
+	}
+	return final_score;
 }
